@@ -36,8 +36,8 @@ const openBrowser  = async (url: string) => {
       {
         args: [...chromium.args, '--hide-scrollbars', '--disable-web-security', "--no-sandbox", "--disable-setuid-sandbox"],
         defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath(`${process.env.NEXT_PUBLIC_CDN_LINK}`
-         ),
+        executablePath: await chromium.executablePath(`https://chromium-bucket-yun.s3.ap-northeast-2.amazonaws.com/chromium-v126.0.0-pack.tar`
+        ),
         headless: chromium.headless,
         // ignoreHTTPSErrors: true
       }
