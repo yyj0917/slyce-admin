@@ -22,6 +22,7 @@ const itemVariants: Variants = {
 export default function InfluencerMain() {
     const { data: influencers, isLoading, isError } = useFetchInfluencers();
 
+    
     const [isOpen, setIsOpen] = useState(false);
     const [selectedComponent, setSelectedComponent] = useState('StatusCheck');
     const handleNavButtonClick = (componentName: string) => {
