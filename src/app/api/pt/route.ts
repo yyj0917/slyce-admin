@@ -42,43 +42,42 @@ const openBrowser  = async (url: string) => {
     // 페이지 열기
     const page = await browser.newPage();
     // 링크 이동
-    // await page.goto(url, {
-    //     waitUntil: "domcontentloaded", // 500ms 동안 두 개 이상의 네트워크 연결이 없을 때 탐색이 완료되는 것으로 간주
-    //     timeout: 12000,
-    // });
-    await page.setRequestInterception(true);
-    page.on('request', (request) => {
-        if (['image', 'stylesheet', 'font'].includes(request.resourceType())) {
-        request.abort(); // 이미지, 스타일시트, 폰트 요청 차단
-        } else {
-        request.continue(); // 나머지 리소스는 계속 로드
-        }
+    await page.goto(url, {
+        waitUntil: "networkidle2", // 500ms 동안 두 개 이상의 네트워크 연결이 없을 때 탐색이 완료되는 것으로 간주
     });
+    // await page.setRequestInterception(true);
+    // page.on('request', (request) => {
+    //     if (['image', 'stylesheet', 'font'].includes(request.resourceType())) {
+    //     request.abort(); // 이미지, 스타일시트, 폰트 요청 차단
+    //     } else {
+    //     request.continue(); // 나머지 리소스는 계속 로드
+    //     }
+    // });
 
-    try {
-        await page.goto(url, {
-        waitUntil: 'domcontentloaded', // DOMContentLoaded 이벤트를 기준으로 탐색 완료
-        timeout: 120000, // 타임아웃을 60초로 설정
-        });
+    // try {
+    //     await page.goto(url, {
+    //     waitUntil: 'domcontentloaded', // DOMContentLoaded 이벤트를 기준으로 탐색 완료
+    //     timeout: 120000, // 타임아웃을 60초로 설정
+    //     });
 
-        const content: string = await page.content();
-        return content;
-    } catch (error) {
-        console.error('Error opening page:', error);
-        throw new Error('Failed to open the page');
-    } finally {
-        await page.close();
-        // await browser.close();
-    }
+    //     const content: string = await page.content();
+    //     return content;
+    // } catch (error) {
+    //     console.error('Error opening page:', error);
+    //     throw new Error('Failed to open the page');
+    // } finally {
+    //     await page.close();
+    //     // await browser.close();
+    // }
   
     // //4. HTML 정보 가지고 온다.
-    // // const content  : string = await page.content();
+    const content  : string = await page.content();
     // // console.log('contents: check');
 
     // //5. 페이지와 브라우저 종료
-    // await page.close();
+    await page.close();
   
-    // return content;
+    return content;
   }
 // openBrowser() 를 통해 불러온 html을 파싱하는 함수
 // 이 부분은 https://velog.io/@kimbangul/Next.js-Cheerio.js-%EB%A1%9C-Velog-%ED%81%AC%EB%A1%A4%EB%A7%81%ED%95%98%EA%B8%B0 와 거의 동일합니다.(cheerio.load() 부분과, 태그 클래스명만 변경) 
