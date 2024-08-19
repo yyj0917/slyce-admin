@@ -34,8 +34,7 @@ const openBrowser  = async (url: string) => {
       {
         args: [...chromium.args, "--no-sandbox", "--disable-setuid-sandbox"],
         defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath(`https://chromium-bucket-yun.s3.ap-northeast-2.amazonaws.com/chromium-v126.0.0-pack.tar`
-        ),
+        executablePath: await chromium.executablePath(),
         headless: chromium.headless,
       }
     ); 
@@ -55,17 +54,14 @@ const openBrowser  = async (url: string) => {
         request.continue(); // 나머지 리소스는 계속 로드
         }
     });
-    console.log('page: check');
 
     try {
         await page.goto(url, {
         waitUntil: 'domcontentloaded', // DOMContentLoaded 이벤트를 기준으로 탐색 완료
         timeout: 120000, // 타임아웃을 60초로 설정
         });
-        console.log('pge: check');
 
         const content: string = await page.content();
-        console.log('content: check');
         return content;
     } catch (error) {
         console.error('Error opening page:', error);
