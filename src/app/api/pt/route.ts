@@ -43,7 +43,8 @@ const openBrowser  = async (url: string) => {
     const page = await browser.newPage();
     // 링크 이동
     await page.goto(url, {
-        waitUntil: "networkidle2", // 500ms 동안 두 개 이상의 네트워크 연결이 없을 때 탐색이 완료되는 것으로 간주
+        waitUntil: 'domcontentloaded', // DOMContentLoaded 이벤트를 기준으로 탐색 완료
+        timeout: 120000, // 타임아웃을 60초로 설정
     });
     // await page.setRequestInterception(true);
     // page.on('request', (request) => {
