@@ -22,9 +22,7 @@ export default function Inspect({ influencer }: any) {
             (inf.tag_valid === "nothing" || inf.tag_valid === "true") && 
             (inf.status === "승인"));
         setFilteredInfluencers(filtered);
-        console.log("selectedIds:", selectedIds);
-
-    }, []);
+    }, [influencer]);
 
     const handleSelectAll = () => {
         if (selectedIds.length === influencer.length) {

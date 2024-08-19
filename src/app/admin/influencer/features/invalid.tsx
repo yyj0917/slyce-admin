@@ -10,7 +10,7 @@ export default function Invalid({ influencer }: any) {
         const filtered = influencer.filter((inf: any) => 
             (inf.post_valid === "false") && (inf.tag_valid === "false"));
         setFilteredInfluencers(filtered);
-    }, []);
+    }, [influencer]);
     return (
         <>
             <div className="flex justify-end gap-3 items-center my-3 mr-3">
