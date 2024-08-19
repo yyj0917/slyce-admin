@@ -1,8 +1,3 @@
-// import getExecutablePath from '@/libs/get-excutable-path';
-// import { NextRequest, NextResponse } from 'next/server';
-// import puppeteer from 'puppeteer-core';
-// import os from "os";
-import type { NextApiRequest, NextApiResponse } from 'next';
 import * as cheerio from 'cheerio';
 import puppeteer from 'puppeteer-core';
 import chromium from '@sparticuz/chromium-min';
@@ -34,7 +29,7 @@ const openBrowser  = async (url: string) => {
       :
       // 서버 실행 환경
       {
-        args: [...chromium.args, '--hide-scrollbars', '--disable-web-security', "--no-sandbox", "--disable-setuid-sandbox"],
+        args: [...chromium.args, "--no-sandbox", "--disable-setuid-sandbox"],
         defaultViewport: chromium.defaultViewport,
         executablePath: await chromium.executablePath(`https://chromium-bucket-yun.s3.ap-northeast-2.amazonaws.com/chromium-v126.0.0-pack.tar`
         ),
