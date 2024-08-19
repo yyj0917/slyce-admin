@@ -58,8 +58,8 @@ export default function StatusCheck({ influencer }: any) {
             <div className="flex flex-col items-center justify-center">
                 <div className="w-full border-2 flex justify-between">
                     <div className="w-1/12 p-2 border flex justify-center items-center px-4 py-2 text-[15px]">선택</div>
-                    <div className="w-2/12 p-2 border flex justify-center items-center px-4 py-2 text-[15px]">인플루언서 이름</div>
-                    <div className="w-5/12 p-2 border flex justify-center items-center px-4 py-2 text-[15px]">게시물 URL</div>
+                    <div className="w-4/12 p-2 border flex justify-center items-center px-4 py-2 text-[15px]">인플루언서 이름(계정)</div>
+                    <div className="w-3/12 p-2 border flex justify-center items-center px-4 py-2 text-[15px]">게시물 URL</div>
                     <div className="w-2/12 p-2 border flex justify-center items-center px-4 py-2 text-[15px]">승인버튼</div>
                     <div className="w-2/12 p-2 border flex justify-center items-center px-4 py-2 text-[15px]">현재상태</div>
                 </div>
@@ -72,8 +72,8 @@ export default function StatusCheck({ influencer }: any) {
                             onChange={() => handleSelect(inf.id)}
                             />
                         </div>
-                        <div className="w-2/12 p-2 border flex justify-center items-center px-4 py-2 text-[13px]">{inf.name}</div>
-                        <div className="w-5/12 p-2 border flex justify-center items-center">
+                        <div className="w-4/12 p-2 border flex justify-center items-center px-4 py-2 text-[13px]">{inf.name}</div>
+                        <div className="w-3/12 p-2 border flex justify-center items-center">
                             <a href={inf.posts_url} target="_blank" rel="noopener noreferrer">
                             <Button variant="link" className="none">게시물 URL</Button>
                             </a>

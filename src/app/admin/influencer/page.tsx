@@ -9,6 +9,7 @@ import StatusCheck from "./features/status-check";
 import Inspect from "./features/inspect";
 import { motion, Variants } from "framer-motion";
 import { useFetchInfluencers } from "@/app/queries/influencers";
+import Invalid from "./features/invalid";
 
 const itemVariants: Variants = {
     open: {
@@ -22,7 +23,7 @@ const itemVariants: Variants = {
 export default function InfluencerMain() {
     const { data: influencers, isLoading, isError } = useFetchInfluencers();
 
-    
+
     const [isOpen, setIsOpen] = useState(false);
     const [selectedComponent, setSelectedComponent] = useState('StatusCheck');
     const handleNavButtonClick = (componentName: string) => {
@@ -35,7 +36,7 @@ export default function InfluencerMain() {
             case 'Inspect':
                 return <Inspect influencer={influencers}/>;
             case 'Review':
-                return <Inspect influencer={influencers}/>;
+                return <Invalid influencer={influencers}/>;
             case 'Approval':
                 return <Inspect influencer={influencers}/>;
             default:
@@ -103,7 +104,7 @@ export default function InfluencerMain() {
                                 <NavButton onClick={() => handleNavButtonClick('Inspect')}>확인된인플루언서(검수해야할)</NavButton>
                             </motion.li>
                             <motion.li variants={itemVariants}>
-                                <NavButton>검수하는 섹션</NavButton>
+                                <NavButton onClick={() => handleNavButtonClick('Review')}>유효하지 않은 인플루언서</NavButton>
                             </motion.li>
                             <motion.li variants={itemVariants}>
                                 <NavButton>승인검사</NavButton>
