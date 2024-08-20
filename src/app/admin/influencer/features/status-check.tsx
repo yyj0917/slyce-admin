@@ -55,7 +55,7 @@ export default function StatusCheck({ influencer }: any) {
                 <NavButton className="border rounded-lg" onClick={handleApproveAll}>전체 승인</NavButton>
                 <NavButton className="border rounded-lg" onClick={() => window.location.reload()}>업데이트</NavButton>
             </div>
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center overflow-auto">
                 <div className="w-full border-2 flex justify-between">
                     <div className="w-1/12 p-2 border flex justify-center items-center px-4 py-2 text-[15px]">선택</div>
                     <div className="w-4/12 p-2 border flex justify-center items-center px-4 py-2 text-[15px]">인플루언서 이름(계정)</div>

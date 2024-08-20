@@ -17,12 +17,12 @@ export default function Inspect({ influencer }: any) {
 
     useEffect(() => {
         // 컴포넌트 마운트 시에 필터링을 수행
-        const filtered = influencer.filter((inf: any) => 
+        const filtered = influencer?.filter((inf: any) => 
             (inf.post_valid === "nothing" || inf.post_valid === "true") && 
             (inf.tag_valid === "nothing" || inf.tag_valid === "true") && 
             (inf.status === "승인"));
         setFilteredInfluencers(filtered);
-    }, [influencer]);
+    }, [influencer?.post_valid, influencer?.tag_valid, influencer?.status]);
 
     const handleSelectAll = () => {
         if (selectedIds.length === influencer.length) {
@@ -68,6 +68,35 @@ export default function Inspect({ influencer }: any) {
             setLoading(false);
         }
     };
+    // 수동 검사
+    const handlePostTrue = async (id: number) => {
+        console.log('post true id:', id);
+        await supabase
+            .from('inf')
+            .update({ post_valid: 'true'})
+            .eq('id', id);
+        
+    }
+    const handlePostFalse = async (id: number) => {
+        await supabase
+            .from('inf')
+            .update({ post_valid: 'false'})
+            .eq('id', id);
+    }
+    const handleTagTrue = async (id: number) => {
+        await supabase
+            .from('inf')
+            .update({ tag_valid: 'true'})
+            .eq('id', id);
+    }
+    const handleTagFalse = async (id: number) => {
+        await supabase
+            .from('inf')
+            .update({ tag_valid: 'false'})
+            .eq('id', id);
+    }
+    
+
     return (
         <>
             {loading ? (
@@ -82,7 +111,7 @@ export default function Inspect({ influencer }: any) {
                     <NavButton className="border rounded-lg" onClick={()=>handleInspect(selectedIds[0])}>검사하기</NavButton>
                     <NavButton className="border rounded-lg" onClick={() => window.location.reload()}>업데이트</NavButton>
                 </div>
-                <div className="flex flex-col items-center justify-center">
+                <div className="flex flex-col items-center justify-center overflow-auto">
                     <div className="w-full border-2 flex justify-between">
                         <div className="w-1/12 p-2 border flex justify-center items-center px-4 py-2 text-[15px]">선택</div>
                         <div className="w-3/12 p-2 border flex justify-center items-center px-4 py-2 text-[15px]">인플루언서 이름(계정)</div>
@@ -91,7 +120,7 @@ export default function Inspect({ influencer }: any) {
                         <div className="w-2/12 p-2 border flex justify-center items-center px-4 py-2 text-[15px]">게시물 유효성</div>
                         <div className="w-2/12 p-2 border flex justify-center items-center px-4 py-2 text-[15px]">태그 유효성</div>
                     </div>
-                    {filteredInfluencers.map((inf:any) => (
+                    {filteredInfluencers?.map((inf:any) => (
                         <div key={inf.id} className="w-full border-2 flex justify-between">
                             <div className="w-1/12 p-2 border flex justify-center items-center">
                                 <input 
@@ -106,12 +135,25 @@ export default function Inspect({ influencer }: any) {
                                 <Button variant="link" className="hover:border-2 hover:bg-slate-800">게시물 URL</Button>
                                 </a>
                             </div>
-                            <div className="w-2/12 p-2 border flex justify-center items-center px-4 py-2 text-[13px]">{inf.status}</div>
-
-                            <div className="w-2/12 p-2 border flex justify-center items-center px-4 py-2 text-[13px]">
-                                {inf?.post_valid}    
+                            <div className="w-2/12 p-2 border flex justify-between items-center px-4 py-2 text-[13px]">
+                                {inf.status}
+                                
                             </div>
-                            <div className="w-2/12 p-2 border flex justify-center items-center px-4 py-2 text-[13px]">{inf?.tag_valid}</div>
+
+                            <div className="w-2/12 p-2 border flex justify-between items-center px-4 py-2 text-[13px]">
+                                {inf?.post_valid} 
+                                <div className="flex flex-col p-0 m-0 gap-1">
+                                    <Button variant="link" className='px-4 m-0 border-2 bg-slate-600' onClick={() => handlePostTrue(inf.id)}>True</Button>
+                                    <Button variant="link" className='px-4 m-0 border-2 bg-slate-600' onClick={() => handlePostFalse(inf.id)}>False</Button>
+                                </div>
+                            </div>
+                            <div className="w-2/12 p-2 border flex justify-between items-center px-4 py-2 text-[13px]">
+                                {inf?.tag_valid}
+                                <div className="flex flex-col p-0 m-0 gap-1">
+                                    <Button variant="link" className='px-4 m-0 border-2 bg-slate-600' onClick={() => handleTagTrue(inf.id)}>True</Button>
+                                    <Button variant="link" className='px-4 m-0 border-2 bg-slate-600' onClick={() => handleTagFalse(inf.id)}>False</Button>
+                                </div>
+                            </div>
                         </div>
                     ))}
                 </div>
